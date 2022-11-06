@@ -14,5 +14,7 @@ namespace BankApp.Models.Data
 
 
         public DbSet<Customer> Customers { set; get; }
+
+        public DbSet<Transaction> Transactions { set; get; }
     }
 }
