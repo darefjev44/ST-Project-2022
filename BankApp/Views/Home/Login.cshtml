@@ -1,0 +1,45 @@
+﻿@page
+@model BankApp.Pages.Shared.LoginModel
+@{
+	ViewData["Title"] = "Sign In";
+	ViewData["NavLink"] = "Register";
+	ViewData["NavText"] = "Register";
+	Layout = "_MinLayout";
+}
+
+<section class="text-center">
+    <div class="container ps-5 pe-5">
+        <p class="text-muted">Enter your User ID and the remaining 3 PIN digits.</p>
+    </div>
+</section>
+<section class="text-center">
+    <div class="container ps-4 pe-4">
+        <form>
+            <div class="mb-3">
+                <label class="form-label text-center" for="userid">User ID</label>
+                <input class="form-control" type="number" id="userid">
+            </div>
+            <div class="mb-3">
+                <p class="form-label text-center">PIN Code</p>
+				<div class="d-flex justify-content-center">
+                    <!-- Hidden labels for accessibility -->
+                    <label class="visually-hidden" for="pin1">Pin Digit 1</label>
+					<input class="form-control pin-digit" type="password" maxlength="1" id="pin1">
+                    <label class="visually-hidden" for="pin2">Pin Digit 2</label>
+                    <input class="form-control pin-digit" type="password" maxlength="1" id="pin2" disabled value=" "> <!-- Disabled for demonstration -->
+                    <label class="visually-hidden" for="pin3">Pin Digit 3</label>
+                    <input class="form-control pin-digit" type="password" maxlength="1" id="pin3">
+                    <label class="visually-hidden" for="pin4">Pin Digit 4</label>
+                    <input class="form-control pin-digit" type="password" maxlength="1" id="pin4" disabled value=" "> <!-- Disabled for demonstration -->
+                    <label class="visually-hidden" for="pin5">Pin Digit 5</label>
+                    <input class="form-control pin-digit" type="password" maxlength="1" id="pin5" disabled value=" "> <!-- Disabled for demonstration -->
+                    <label class="visually-hidden" for="pin6">Pin Digit 6</label>
+                    <input class="form-control pin-digit" type="password" maxlength="1" id="pin6">
+				</div>
+            </div>
+            <div class="mb-3">
+                <button asp-page="/Index" class="btn btn-primary w-50" type="submit">Sign In</button>
+            </div>
+        </form>
+    </div>
+</section>
