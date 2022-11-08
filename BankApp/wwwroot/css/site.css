@@ -1,18 +1,68 @@
-html {
-  font-size: 14px;
+/* Navigation */
+
+.navbar {
+    background: linear-gradient(120deg, #5c73e9, #be465e);
+    color: #FBFBFB;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.navbar-collapse {
+    border-top: 1px solid #FBFBFB;
+    margin-top: 5px;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+.navbar-toggler {
+    border-color: #FBFBFB !important;
 }
 
-body {
-  margin-bottom: 60px;
+.nav-seperator {
+    content: '';
+    border-bottom: 1px solid #FBFBFB;
+    bottom: 0;
+    left: 15px;
+    right: 15px;
+}
+
+.nav-link:not(.disabled, .btn) {
+    color: #FBFBFB !important;
+}
+
+.nav-link.btn {
+    color: #FBFBFB
+}
+
+.navbar .container {
+    justify-content: normal;
+}
+
+/* Body */
+
+main {
+    margin-top: 58px;
+    padding-top: 2em;
+}
+
+section {
+    margin-bottom: 2em;
+}
+
+/* Pin Code Input */
+.pin-digit:nth-child(2) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.pin-digit:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left-width: 0;
+}
+
+.pin-digit:not(:nth-child(2)):not(:last-child) {
+    border-radius: 0;
+    border-left-width: 0;
+}
+
+.pin-digit {
+    flex-grow: 1;
+    text-align: center;
 }

@@ -18,7 +18,22 @@ namespace BankApp.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Deposit()
+        {
+            return View();
+        }
+
+        public IActionResult Transfer()
+        {
+            return View();
+        }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        public IActionResult Login()
         {
             return View();
         }
