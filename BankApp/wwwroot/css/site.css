@@ -34,7 +34,7 @@
     justify-content: normal;
 }
 
-/* Body */
+/* General/Body */
 
 main {
     margin-top: 58px;
@@ -43,6 +43,11 @@ main {
 
 section {
     margin-bottom: 2em;
+}
+
+form {
+    padding-left: 2em;
+    padding-right: 2em;
 }
 
 /* Pin Code Input */
