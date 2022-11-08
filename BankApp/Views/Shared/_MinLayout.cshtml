@@ -17,7 +17,7 @@
                 </svg>
                 BankApp
             </a>
-            <a class="nav-link btn btn-outline-light ms-auto" asp-page="@ViewData["NavLink"]">@ViewData["NavText"]</a>
+            <a class="nav-link btn btn-outline-light ms-auto" href="@Url.Action(@ViewData["NavLink"].ToString(), "Home")">@ViewData["NavText"]</a>
         </div>
     </nav>
     <div class="container">

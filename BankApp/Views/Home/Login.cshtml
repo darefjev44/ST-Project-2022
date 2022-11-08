@@ -1,6 +1,6 @@
 ﻿@{
 	ViewData["Title"] = "Sign In";
-	ViewData["NavLink"] = "/Home/Register";
+	ViewData["NavLink"] = "Register";
 	ViewData["NavText"] = "Register";
     Layout = "/Views/Shared/_MinLayout.cshtml";
 }
@@ -36,7 +36,11 @@
 				</div>
             </div>
             <div class="mb-3">
-                <button asp-page="/Index" class="btn btn-primary w-50" type="submit">Sign In</button>
+                <button asp-controller="Home"
+                        asp-action="Index" 
+                        class="btn btn-primary w-50" type="submit">
+                    Sign In
+                </button>
             </div>
         </form>
     </div>

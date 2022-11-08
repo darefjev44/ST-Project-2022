@@ -1,6 +1,6 @@
 ﻿@{
 	ViewData["Title"] = "Register";
-    ViewData["NavLink"] = "/Home/Login";
+    ViewData["NavLink"] = "Login";
 	ViewData["NavText"] = "Sign In";
     Layout = "/Views/Shared/_MinLayout.cshtml";
 }
@@ -42,7 +42,11 @@
                 <input class="form-control" type="text" id="eircode" />
             </div>
             <div class="mb-3">
-                <button asp-page="/Login" class="btn btn-primary w-50" type="submit">Register</button>
+                <button asp-controller="Home"
+                        asp-action="Login"
+                        class="btn btn-primary w-50" type="submit">
+                    Register
+                </button>
             </div>
         </form>
     </div>
