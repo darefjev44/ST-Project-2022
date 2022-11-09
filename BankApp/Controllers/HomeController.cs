@@ -18,21 +18,25 @@ namespace BankApp.Controllers
             return View();
         }
 
+        [Route("deposit")]
         public IActionResult Deposit()
         {
             return View();
         }
 
+        [Route("transfer")]
         public IActionResult Transfer()
         {
             return View();
         }
 
+        [Route("register")]
         public IActionResult Register()
         {
             return View();
         }
 
+        [Route("login")]
         public IActionResult Login()
         {
             return View();
