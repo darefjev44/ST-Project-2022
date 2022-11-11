@@ -13,8 +13,8 @@ namespace BankApp.Models.Data
         public DbSet<BankAccount> BankAccounts { set; get; }
 
 
-        public DbSet<Accounts> Customers { set; get; }
+        public DbSet<AccountModel> Customers { set; get; }
 
-        public DbSet<Transaction> Transactions { set; get; }
+        public DbSet<TransactionModel> Transactions { set; get; }
     }
 }
