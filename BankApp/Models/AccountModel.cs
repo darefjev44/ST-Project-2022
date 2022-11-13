@@ -23,43 +23,39 @@ namespace BankApp.Models
         public decimal Balance { get; set; }
 
         //Account Signup Information
-        [Required(ErrorMessage = "First name is required.")]
-        [RegularExpression("^[a-zA-Z ]*$")]
+        //Validation annotations are not required here as this model is only for backend purposes.
+        [Required]
         public string FirstName { get; set; }
 
 
-        [Required(ErrorMessage = "Surname is required.")]
-        [RegularExpression("^[a-zA-Z ]*$")]
+        [Required]
         public string LastName { get; set; }
 
 
-        [Required(ErrorMessage = "Address is required.")]
+        [Required]
         public string Address1 { get; set; }
 
 
         public string? Address2 { get; set; }
 
 
-        [Required(ErrorMessage = "City is required.")]
+        [Required]
         public string City { get; set; }
 
 
-        [Required(ErrorMessage = "County is required.")]
+        [Required]
         public string County { get; set; }
 
 
-        [Required(ErrorMessage = "Eircode is required.")]
-        [StringLength(7, MinimumLength = 7, ErrorMessage = "Invalid eircode has been entered.")]
+        [Required]
         public string Eircode { get; set; }
 
 
-        [Required(ErrorMessage = "Phone number is required.")]
-        [DataType(DataType.PhoneNumber, ErrorMessage = "Invalid phone number has been entered.")]
+        [Required]
         public string PhoneNumber { get; set; }
 
 
-        [Required(ErrorMessage = "Email is required.")]
-        [DataType(DataType.EmailAddress, ErrorMessage = "Invalid Email has been entered.")]
+        [Required]
         public string Email { get; set; }
     }
 }

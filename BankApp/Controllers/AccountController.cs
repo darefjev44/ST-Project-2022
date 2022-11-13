@@ -17,17 +17,32 @@ namespace BankApp.Controllers
 
         //REGISTRATION FORM (POST)
         [HttpPost]
-        public IActionResult Register(AccountModel account)
+        public IActionResult Register(AccountViewModel avm)
         {
-            account.Transactions = new List<TransactionModel>();
-            account.PIN = 100000; //temp
-            ModelState.Append()
             if (ModelState.IsValid)
             {
-                TempData["success"] = "Account succesfully registered!";
+                AccountModel account = new AccountModel(); //this can and should be done via a new constructor e.g AccountModel(AccountViewModel)
+                account.FirstName = avm.FirstName;
+                account.LastName = avm.LastName;
+                account.Address1 = avm.Address1;
+                account.Address2 = avm.Address2;
+                account.City = avm.City;
+                account.County = avm.County;
+                account.Eircode = avm.Eircode;
+                account.Email = avm.Email;
+                account.PhoneNumber = avm.PhoneNumber;
+
+                //add the new values
+                account.Transactions = new List<TransactionModel>();
+
+                //PIN, probably done elsewhere once we have identities?
+                Random r = new Random();
+                account.PIN = r.Next(100000, 999999);
+
+                //TODO notification
                 return RedirectToAction("Index");
             }
-            return View(account);
+            return View(avm);
         }
     }
 }
