@@ -32,15 +32,19 @@ namespace BankApp.Controllers
                 account.Email = avm.Email;
                 account.PhoneNumber = avm.PhoneNumber;
 
-                //add the new values
+                //Add additional values that shouldn't be from the user.
                 account.Transactions = new List<TransactionModel>();
-
                 //PIN, probably done elsewhere once we have identities?
                 Random r = new Random();
                 account.PIN = r.Next(100000, 999999);
 
-                //TODO notification
-                return RedirectToAction("Index");
+                //TempData for registration success notification
+                TempData["success"] = true;
+                TempData["success-id"] = account.UserID;
+                TempData["success-pin"] = account.PIN;
+
+                ModelState.Clear(); //Clears the form, no need for it to be filled anymore.
+                return View();
             }
             return View(avm);
         }
