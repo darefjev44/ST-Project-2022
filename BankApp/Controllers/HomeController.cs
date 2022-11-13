@@ -18,26 +18,12 @@ namespace BankApp.Controllers
             return View();
         }
 
-        [Route("deposit")]
         public IActionResult Deposit()
         {
             return View();
         }
 
-        [Route("transfer")]
         public IActionResult Transfer()
-        {
-            return View();
-        }
-
-        [Route("register")]
-        public IActionResult Register()
-        {
-            return View();
-        }
-
-        [Route("login")]
-        public IActionResult Login()
         {
             return View();
         }
@@ -46,6 +32,14 @@ namespace BankApp.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        //Registration Form Handler, this should probably be in it's own controller...
+        public ActionResult RegisterForm(Models.AccountModel accountModel)
+        {
+            ViewBag.FirstName = accountModel.FirstName;
+
+            return View("Index");
         }
     }
 }
