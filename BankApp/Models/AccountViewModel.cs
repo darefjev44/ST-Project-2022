@@ -44,7 +44,8 @@ namespace BankApp.Models
 
 
         [Required(ErrorMessage = "Phone number is required.")]
-        [DataType(DataType.PhoneNumber, ErrorMessage = "Invalid phone number has been entered.")]
+        //Replacing DataType.PhoneNumber with regex as it doesn't really work correctly. Source: https://ihateregex.io/expr/phone/
+        [RegularExpression("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", ErrorMessage = "Invalid phone number has been entered.")]
         public string PhoneNumber { get; set; }
 
 
