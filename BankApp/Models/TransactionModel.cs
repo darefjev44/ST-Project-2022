@@ -11,11 +11,14 @@ namespace BankApp.Models
         [Required]
         public int TransactionID { get; set; }
 
-        //FK
+        /* Not sure if this is actually required?
+         * 
+        //FK - I messed up here I think.
         [Required]
         [ForeignKey("Account")]
         public int AccountID { get; set; }
         public virtual AccountModel Account { get; set; }
+        */
 
         [Required]
         public decimal Amount { get; set; }

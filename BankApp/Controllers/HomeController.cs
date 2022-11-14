@@ -1,6 +1,7 @@
 ﻿using BankApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Principal;
 
 namespace BankApp.Controllers
 {
@@ -34,12 +35,23 @@ namespace BankApp.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        //Registration Form Handler, this should probably be in it's own controller...
-        public ActionResult RegisterForm(Models.AccountModel accountModel)
+        [HttpPost]
+        public IActionResult Deposit(DepositViewModel depositViewModel)
         {
-            ViewBag.FirstName = accountModel.FirstName;
+            if (ModelState.IsValid)
+            {
+                TransactionModel transaction = new TransactionModel();
+                transaction.Amount = depositViewModel.Amount;
+                transaction.Date = new DateOnly(); //assuming this is current date
+                transaction.Message = "DEPOSIT";
 
-            return View("Index");
+                TempData["success"] = true;
+                TempData["success-amount"] = depositViewModel.Amount.ToString();
+
+                ModelState.Clear(); //Clears the form, no need for it to be filled anymore.
+                return View();
+            }
+            return View(depositViewModel);
         }
     }
 }
