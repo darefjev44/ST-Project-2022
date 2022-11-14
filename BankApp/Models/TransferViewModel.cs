@@ -11,7 +11,7 @@ namespace BankApp.Models
             ErrorMessage = "Amount must be between 0.01 and 500.00")]
         public decimal Amount { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Recipient's User ID is required.")]
         public int DestinationID { get; set; }
     }
 }

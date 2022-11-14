@@ -47,11 +47,42 @@ namespace BankApp.Controllers
 
                 TempData["success"] = true;
                 TempData["success-amount"] = depositViewModel.Amount.ToString();
+                TempData["prompt-message"] = "Deposited €" + depositViewModel.Amount + " successfully.";
 
                 ModelState.Clear(); //Clears the form, no need for it to be filled anymore.
                 return View();
             }
             return View(depositViewModel);
         }
+
+        [HttpPost]
+        public IActionResult Transfer(TransferViewModel transferViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                //check if destination id exists
+
+                TransactionModel userTransaction = new TransactionModel();
+                userTransaction.Amount = -transferViewModel.Amount;
+                userTransaction.Date = new DateOnly(); //assuming this is current date
+                userTransaction.Message = "TRANSFER - " + transferViewModel.DestinationID;
+
+                TransactionModel destTransaction = new TransactionModel();
+                destTransaction.Amount = transferViewModel.Amount;
+                destTransaction.Date = new DateOnly();
+                destTransaction.Message = "TRANSFER - 999999"; //sender's UserID here
+
+                //add to appropriate account model's Transactions lists, DB update
+
+                TempData["success"] = true;
+                TempData["prompt-message"] = "Transferred €" + transferViewModel.Amount + " to User ID " + transferViewModel.DestinationID + " successfully.";
+
+                ModelState.Clear(); //Clears the form, no need for it to be filled anymore.
+                return View();
+            }
+            return View(transferViewModel);
+        }
+
+
     }
 }
