@@ -13,18 +13,18 @@
         <div class="container">
 			<button class="navbar-toggler d-block" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="visually-hidden">Toggle Navigation</span><span class="navbar-toggler-icon"></span></button>
 			<a class="navbar-brand ms-3">@ViewData["Title"]</a>
-            <a class="nav-link btn btn-outline-light ms-auto" href="@Url.Action("Login", "Home")">Sign Out</a>
+            <a class="nav-link btn btn-outline-light ms-auto" asp-controller="Login" asp-action="Index">Sign Out</a>
 			<div id="navbarNav" class="collapse navbar-collapse">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item nav-seperator"><a class="nav-link">User ID: 999999</a></li>
-                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Home")">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Transfer", "Home")">Transfer Funds</a></li>
-                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Deposit", "Home")">Deposit Funds</a></li>
-					<li class="nav-item"><a class="nav-link disabled" href="#">Withdraw Funds</a></li>
-					<li class="nav-item"><a class="nav-link disabled" href="#">Transaction History</a></li>
-					<li class="nav-item nav-seperator"><a class="nav-link disabled" href="#">My Account</a></li>
-					<li class="nav-item"><a class="nav-link disabled" href="#">Terms of Service</a></li>
-					<li class="nav-item"><a class="nav-link disabled" href="#">Support</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Transfer">Transfer Funds</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Deposit">Deposit Funds</a></li>
+					<li class="nav-item"><a class="nav-link disabled">Withdraw Funds</a></li>
+					<li class="nav-item"><a class="nav-link disabled">Transaction History</a></li>
+					<li class="nav-item nav-seperator"><a class="nav-link disabled">My Account</a></li>
+					<li class="nav-item"><a class="nav-link disabled">Terms of Service</a></li>
+					<li class="nav-item"><a class="nav-link disabled">Support</a></li>
 				</ul>
 			</div>
         </div>
