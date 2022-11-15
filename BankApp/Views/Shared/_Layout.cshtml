@@ -55,6 +55,15 @@
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function(){
+            $(".nav-item a").each(function(){
+                if(window.location.href==this.href){
+                    $(this).addClass("fw-bold");
+                }
+            })
+        })
+    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
