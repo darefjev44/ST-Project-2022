@@ -26,6 +26,6 @@ namespace BankApp.Models
         public string Message { get; set; }
 
         [Required]
-        public DateOnly Date { get; set; }
+        public DateTime Date { get; set; }
     }
 }

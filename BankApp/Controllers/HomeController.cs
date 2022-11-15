@@ -42,7 +42,7 @@ namespace BankApp.Controllers
             {
                 TransactionModel transaction = new TransactionModel();
                 transaction.Amount = depositViewModel.Amount;
-                transaction.Date = new DateOnly(); //assuming this is current date
+                transaction.Date = DateTime.Today;
                 transaction.Message = "DEPOSIT";
 
                 TempData["success"] = true;
@@ -64,12 +64,12 @@ namespace BankApp.Controllers
 
                 TransactionModel userTransaction = new TransactionModel();
                 userTransaction.Amount = -transferViewModel.Amount;
-                userTransaction.Date = new DateOnly(); //assuming this is current date
+                userTransaction.Date = DateTime.Today;
                 userTransaction.Message = "TRANSFER - " + transferViewModel.DestinationID;
 
                 TransactionModel destTransaction = new TransactionModel();
                 destTransaction.Amount = transferViewModel.Amount;
-                destTransaction.Date = new DateOnly();
+                destTransaction.Date = DateTime.Today;
                 destTransaction.Message = "TRANSFER - 999999"; //sender's UserID here
 
                 //add to appropriate account model's Transactions lists, DB update
