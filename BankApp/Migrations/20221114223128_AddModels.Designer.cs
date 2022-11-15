@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BankApp.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20221106145541_AddModels")]
+    [Migration("20221114223128_AddModels")]
     partial class AddModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,34 +24,13 @@ namespace BankApp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("BankApp.Models.BankAccount", b =>
+            modelBuilder.Entity("BankApp.Models.AccountModel", b =>
                 {
-                    b.Property<Guid>("AccountID")
+                    b.Property<int>("UserID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<decimal>("Balance")
-                        .HasColumnType("money");
-
-                    b.Property<Guid>("CustomerID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AccountID");
-
-                    b.HasIndex("CustomerID");
-
-                    b.ToTable("BankAccounts");
-                });
-
-            modelBuilder.Entity("BankApp.Models.Customer", b =>
-                {
-                    b.Property<Guid>("CustomerID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"), 1L, 1);
 
                     b.Property<string>("Address1")
                         .IsRequired()
@@ -59,6 +38,9 @@ namespace BankApp.Migrations
 
                     b.Property<string>("Address2")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -84,9 +66,8 @@ namespace BankApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Pac")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PIN")
+                        .HasColumnType("int");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
@@ -96,64 +77,49 @@ namespace BankApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CustomerID");
+                    b.HasKey("UserID");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("BankApp.Models.Transaction", b =>
+            modelBuilder.Entity("BankApp.Models.TransactionModel", b =>
                 {
-                    b.Property<Guid>("TransactionID")
+                    b.Property<int>("TransactionID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("AccountID")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TransactionID"), 1L, 1);
 
-                    b.Property<Guid?>("BankAccountAccountID")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("AccountModelUserID")
+                        .HasColumnType("int");
 
-                    b.Property<decimal>("TransactionAmount")
-                        .HasColumnType("money");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime>("TransactionDate")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("TransactionMessage")
+                    b.Property<string>("Message")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TransactionID");
 
-                    b.HasIndex("BankAccountAccountID");
+                    b.HasIndex("AccountModelUserID");
 
                     b.ToTable("Transactions");
                 });
 
-            modelBuilder.Entity("BankApp.Models.BankAccount", b =>
+            modelBuilder.Entity("BankApp.Models.TransactionModel", b =>
                 {
-                    b.HasOne("BankApp.Models.Customer", null)
-                        .WithMany("BankAccounts")
-                        .HasForeignKey("CustomerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("BankApp.Models.Transaction", b =>
-                {
-                    b.HasOne("BankApp.Models.BankAccount", null)
+                    b.HasOne("BankApp.Models.AccountModel", null)
                         .WithMany("Transactions")
-                        .HasForeignKey("BankAccountAccountID");
+                        .HasForeignKey("AccountModelUserID");
                 });
 
-            modelBuilder.Entity("BankApp.Models.BankAccount", b =>
+            modelBuilder.Entity("BankApp.Models.AccountModel", b =>
                 {
                     b.Navigation("Transactions");
-                });
-
-            modelBuilder.Entity("BankApp.Models.Customer", b =>
-                {
-                    b.Navigation("BankAccounts");
                 });
 #pragma warning restore 612, 618
         }
