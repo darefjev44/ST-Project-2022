@@ -29,7 +29,7 @@
 @if (TempData["success"] != null)
 {
     <div class="modal" id="deposit-modal">
-        <div class="modal-dialog model-diaglog-centered">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Deposit Successful!</h5>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" href>Home</button>
+                    <button type="button" class="btn btn-primary" asp-controller="Home" asp-action="Index">Home</button>
                 </div>
             </div>
         </div>

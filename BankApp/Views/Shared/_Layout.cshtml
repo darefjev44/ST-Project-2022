@@ -13,7 +13,7 @@
         <div class="container">
 			<button class="navbar-toggler d-block" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="visually-hidden">Toggle Navigation</span><span class="navbar-toggler-icon"></span></button>
 			<a class="navbar-brand ms-3">@ViewData["Title"]</a>
-            <a class="nav-link btn btn-outline-light ms-auto" asp-controller="Login" asp-action="Index">Sign Out</a>
+            <button class="nav-link btn btn-outline-light ms-auto" data-bs-toggle="modal" data-bs-target="#signout-modal">Sign Out</button>
 			<div id="navbarNav" class="collapse navbar-collapse">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item nav-seperator"><a class="nav-link">User ID: 999999</a></li>
@@ -32,6 +32,25 @@
 
     <main>
         @RenderBody()
+        <div class="modal" id="signout-modal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Sign Out</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p>
+                            Are you sure you want to sign out?
+                        </p>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                        <a type="button" class="btn btn-primary" asp-controller="Login" asp-action="Index">Yes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

@@ -82,7 +82,5 @@ namespace BankApp.Controllers
             }
             return View(transferViewModel);
         }
-
-
     }
 }
