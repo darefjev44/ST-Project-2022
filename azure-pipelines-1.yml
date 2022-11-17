@@ -1,12 +1,4 @@
 # ASP.NET Core (.NET Framework)
-# SonarCloud Settings
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'SonarCloud'
-    organization: 'stproject2022'
-    scannerMode: 'MSBuild'
-    projectKey: 'STProject2022_BankApp'
-    projectName: 'BankApp'
 # Build and test ASP.NET Core projects targeting the full .NET Framework.
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
@@ -22,12 +14,21 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
+
 steps:
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SonarCloud'
+    organization: 'stproject2022'
+    scannerMode: 'MSBuild'
+    projectKey: 'STProject2022_BankApp'
+    projectName: 'BankApp'
 
 - task: VSBuild@1
   inputs:
