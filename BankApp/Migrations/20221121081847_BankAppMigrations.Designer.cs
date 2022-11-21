@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BankApp.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20221114223128_AddModels")]
-    partial class AddModels
+    [Migration("20221121081847_BankAppMigrations")]
+    partial class BankAppMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -66,15 +66,16 @@ namespace BankApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PIN")
-                        .HasColumnType("int");
+                    b.Property<string>("PIN")
+                        .IsRequired()
+                        .HasMaxLength(7)
+                        .HasColumnType("nvarchar(7)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserID");
