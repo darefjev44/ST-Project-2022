@@ -1,10 +1,16 @@
 ﻿using BankApp.Models;
+using BankApp.Models.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankApp.Controllers
 {
     public class RegisterController : Controller
     {
+        private readonly ApplicationDBContext _db;
+
+        public RegisterController(ApplicationDBContext db){
+            _db = db;
+        }
 
         public IActionResult Index()
         {
@@ -32,7 +38,10 @@ namespace BankApp.Controllers
                 account.Transactions = new List<TransactionModel>();
                 //PIN, probably done elsewhere once we have identities?
                 Random r = new Random();
-                account.PIN = r.Next(100000, 999999);
+                account.PIN = r.Next(100000, 999999).ToString();
+
+                _db.Accounts.Add(account);
+                _db.SaveChanges();
 
                 //TempData for registration success notification
                 TempData["success"] = true;
