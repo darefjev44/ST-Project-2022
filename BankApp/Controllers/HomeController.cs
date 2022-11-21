@@ -1,6 +1,7 @@
 ﻿using BankApp.Models;
 using BankApp.Models.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Security.Principal;
 
@@ -17,7 +18,9 @@ namespace BankApp.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var accounts = _dbContext.Accounts.Include(x => x.Transactions).Where(x => x.UserID == 1);
+            var account = accounts.FirstOrDefault();
+            return View(account);
         }
 
         public IActionResult Deposit()
