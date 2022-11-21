@@ -2,6 +2,8 @@
 	ViewData["Title"] = "Transfer";
 }
 
+@model TransferViewModel
+
 <section class="text-center">
     <div class="container ps-5 pe-5">
         <h3>Your User ID is:</h3>
@@ -17,22 +19,56 @@
 </section>
 <section class="text-center">
     <div class="container ps-4 pe-4">
-        <form>
+        <form method="post">
             <div class="mb-3">
-                <label class="form-label text-center" for="recipientid">Recipient's User ID</label>
-                <input class="form-control" type="number" id="recipientid" />
+                <label asp-for="DestinationID" class="form-label text-center">Recipient's User ID</label>
+                <input asp-for="DestinationID" class="form-control" type="number" />
+                <span asp-validation-for="DestinationID" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label class="form-label text-center" for="amount">Transfer Amount</label>
-                <input class="form-control" type="number" id="amount" />
+                <label asp-for="Amount" class="form-label text-center">Deposit Amount</label>
+                <input asp-for="Amount" class="form-control" type="number"/>
+                <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <button asp-controller="Home"
-                        asp-action="Index"
-                        class="btn btn-primary" type="submit">
-                    Transfer Funds
-                </button>
+                <button class="btn btn-primary" type="submit">Transfer Funds</button>
             </div>
         </form>
     </div>
 </section>
+@*Transfer success prompt via Bootstrap Modals*@
+@if (TempData["success"] != null)
+{
+    <div class="modal" id="transfer-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Transfer Successful!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p>
+                        @TempData["prompt-message"]
+                    </p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a type="button" class="btn btn-primary" asp-controller="Home" asp-action="Index">Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#transfer-modal").modal('show');
+        });
+    </script>
+}
+
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+        <script src="~/lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
+    }
+}

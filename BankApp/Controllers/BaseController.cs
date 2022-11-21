@@ -2,11 +2,11 @@
 
 namespace BankApp.Controllers
 {
-    public class BankAccountController : Controller
+    public class BaseController : Controller
     {
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Login");
         }
     }
 }

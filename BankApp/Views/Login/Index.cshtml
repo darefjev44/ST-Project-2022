@@ -1,0 +1,62 @@
+﻿@{
+	ViewData["Title"] = "Sign In";
+	ViewData["NavLink"] = "Register";
+	ViewData["NavText"] = "Register";
+    Layout = "/Views/Shared/_MinLayout.cshtml";
+}
+
+@model LoginViewModel
+
+<section class="text-center">
+    <div class="container ps-5 pe-5">
+        <p class="text-muted">Enter your User ID and the remaining 3 PIN digits.</p>
+    </div>
+</section>
+<section class="text-center">
+    <div class="container ps-4 pe-4">
+        <form method="post">
+            <div class="mb-3">
+                <label asp-for="UserID" class="form-label text-center">User ID</label>
+                <input asp-for="UserID" class="form-control" type="number">
+                <span asp-validation-for="UserID" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                @*Individual PIN inputs removed for now as ASP Identity isn't being used yet and I'm unsure of implementation.*@
+                <label asp-for="PIN" class="form-label text-center">PIN</label>
+                <input asp-for="PIN" class="form-control" type="password" maxlength="6"/>
+                <span asp-validation-for="PIN" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary w-50" type="submit">Sign In</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+@*Login failure prompt via Bootstrap Modals*@
+@if (TempData["message"] != null)
+{
+    <div class="modal" id="login-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Error Signing In</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p>
+                        @TempData["message"]
+                    </p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#login-modal").modal('show');
+        });
+    </script>
+}

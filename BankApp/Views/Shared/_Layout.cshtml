@@ -6,24 +6,25 @@
     <title>@ViewData["Title"] - BankApp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
 </head>
 <body>
     <nav class="navbar navbar-dark fixed-top">
         <div class="container">
 			<button class="navbar-toggler d-block" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="visually-hidden">Toggle Navigation</span><span class="navbar-toggler-icon"></span></button>
 			<a class="navbar-brand ms-3">@ViewData["Title"]</a>
-            <a class="nav-link btn btn-outline-light ms-auto" href="@Url.Action("Login", "Home")">Sign Out</a>
+            <button class="nav-link btn btn-outline-light ms-auto" data-bs-toggle="modal" data-bs-target="#signout-modal">Sign Out</button>
 			<div id="navbarNav" class="collapse navbar-collapse">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item nav-seperator"><a class="nav-link">User ID: 999999</a></li>
-                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Home")">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Transfer", "Home")">Transfer Funds</a></li>
-                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Deposit", "Home")">Deposit Funds</a></li>
-					<li class="nav-item"><a class="nav-link disabled" href="#">Withdraw Funds</a></li>
-					<li class="nav-item"><a class="nav-link disabled" href="#">Transaction History</a></li>
-					<li class="nav-item nav-seperator"><a class="nav-link disabled" href="#">My Account</a></li>
-					<li class="nav-item"><a class="nav-link disabled" href="#">Terms of Service</a></li>
-					<li class="nav-item"><a class="nav-link disabled" href="#">Support</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Transfer">Transfer Funds</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Deposit">Deposit Funds</a></li>
+					<li class="nav-item"><a class="nav-link disabled">Withdraw Funds</a></li>
+					<li class="nav-item"><a class="nav-link disabled">Transaction History</a></li>
+					<li class="nav-item nav-seperator"><a class="nav-link disabled">My Account</a></li>
+					<li class="nav-item"><a class="nav-link disabled">Terms of Service</a></li>
+					<li class="nav-item"><a class="nav-link disabled">Support</a></li>
 				</ul>
 			</div>
         </div>
@@ -31,11 +32,38 @@
 
     <main>
         @RenderBody()
+        <div class="modal" id="signout-modal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Sign Out</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p>
+                            Are you sure you want to sign out?
+                        </p>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                        <a type="button" class="btn btn-primary" asp-controller="Login" asp-action="Index">Yes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function(){
+            $(".nav-item a").each(function(){
+                if(window.location.href==this.href){
+                    $(this).addClass("fw-bold");
+                }
+            })
+        })
+    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

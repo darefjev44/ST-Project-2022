@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - BankApp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
 </head>
 <body>
     <nav class="navbar navbar-dark fixed-top">
@@ -17,7 +18,7 @@
                 </svg>
                 BankApp
             </a>
-            <a class="nav-link btn btn-outline-light ms-auto" href="@Url.Action(@ViewData["NavLink"].ToString(), "Home")">@ViewData["NavText"]</a>
+            <a class="nav-link btn btn-outline-light ms-auto" asp-controller="@ViewData["NavLink"]" asp-action="Index">@ViewData["NavText"]</a>
         </div>
     </nav>
     <div class="container">
@@ -26,7 +27,6 @@
         </main>
     </div>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
