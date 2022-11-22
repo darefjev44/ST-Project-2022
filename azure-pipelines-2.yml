@@ -21,5 +21,6 @@ steps:
 - task: mirror-git-repository-vsts-task@1
   inputs:
     sourceGitRepositoryUri: '$(Build.Repository.Uri)'
+    sourceGitRepositoryPersonalAccessToken: z2gvxqxpkdo57uh7itg3fgzdgi7hn47jc7j7ndhkj53or7tuwf6a
     destinationGitRepositoryUri: 'https://github.com/darefjev44/BankApp-Mirror'
     destinationGitRepositoryPersonalAccessToken: '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'
