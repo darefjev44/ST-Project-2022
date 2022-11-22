@@ -28,6 +28,11 @@ namespace BankApp.Controllers
             return View();
         }
 
+        public IActionResult Tos()
+        {
+            return View();
+        }
+		
         public IActionResult Transfer()
         {
             return View();
