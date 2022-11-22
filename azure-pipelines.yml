@@ -12,8 +12,6 @@ pool:
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-
 
 steps:
 - task: NuGetToolInstaller@1
@@ -30,6 +28,22 @@ steps:
     projectKey: 'STProject2022_BankApp'
     projectName: 'BankApp'
 
+- task: replacetokens@5
+  inputs:
+    targetFiles: '**/appsettings.json'
+    encoding: 'auto'
+    tokenPattern: 'default'
+    writeBOM: true
+    actionOnMissing: 'warn'
+    keepToken: false
+    actionOnNoFiles: 'continue'
+    enableTransforms: false
+    enableRecursion: false
+    useLegacyPattern: false
+    useLegacyEmptyFeature: false
+    enableTelemetry: false
+
+
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
@@ -38,8 +52,3 @@ steps:
     configuration: '$(buildConfiguration)'
 
 - task: SonarCloudAnalyze@1
-
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
