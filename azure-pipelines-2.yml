@@ -1,0 +1,25 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
+
+- task: mirror-git-repository-vsts-task@1
+  inputs:
+    sourceGitRepositoryUri: '$(Build.Repository.Uri)'
+    destinationGitRepositoryUri: 'https://github.com/darefjev44/BankApp-Mirror'
+    destinationGitRepositoryPersonalAccessToken: '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'
