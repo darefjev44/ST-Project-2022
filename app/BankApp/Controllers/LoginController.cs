@@ -1,17 +1,24 @@
 ﻿using BankApp.Models;
 using BankApp.Models.Data;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankApp.Controllers
 {
+    [AllowAnonymous]
     public class LoginController : Controller
     {
 
-        private readonly ApplicationDbContext _db;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ILogger<RegisterController> _logger;
 
-        public LoginController(ApplicationDbContext db)
+        public LoginController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<RegisterController> logger)
         {
-            _db = db;
+            _signInManager = signInManager;
+            _userManager = userManager;
+            _logger = logger;
         }
 
         public IActionResult Index()
@@ -19,27 +26,24 @@ namespace BankApp.Controllers
             return View();
         }
 
-        //LOGIN FORM (POST)
         [HttpPost]
-        public IActionResult Index(LoginViewModel lvm)
+        public async Task<IActionResult> Index(LoginViewModel lvm)
         {
             if (ModelState.IsValid)
             {
-                /*
-                var account = _db.Accounts.Find(lvm.UserID);
+                var result = await _signInManager.PasswordSignInAsync(lvm.UserID, lvm.PIN, true, lockoutOnFailure: false);
 
-                //if login details are correct, create session, redirect user, etc.
-                if (account != null && account.PIN == lvm.PIN) //replace this with actual authentication for the love of god
+                if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Home");
-                } 
-                else //otherwise return current view, with failure prompt
-                { 
-                    TempData["message"] = "Invalid account details entered. Please try again.";
-                    return View();
-                }*/
+                }
+                else
+                {
+                    TempData["prompt-title"] = "Something went wrong.";
+                    TempData["prompt-body"] = "<p>Invalid account details entered. Please try again.</p>";
+                }
             }
-            return View(lvm);
+            return View();
         }
     }
 }

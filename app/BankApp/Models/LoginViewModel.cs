@@ -4,9 +4,6 @@ using System.ComponentModel;
 
 namespace BankApp.Models
 {
-    /*
-     * This model is intended for use in the registration form
-     */
     public class LoginViewModel
     {
         [DisplayName("User ID")]
