@@ -6,14 +6,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BankApp.Models
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser<int>
     {
         public ApplicationUser()
         {
             this.Transactions = new List<TransactionModel>();
         }
-        [PersonalData]
-        public int UserID { get; set; }
 
         [ProtectedPersonalData]
         public List<TransactionModel> Transactions { get; set; }
