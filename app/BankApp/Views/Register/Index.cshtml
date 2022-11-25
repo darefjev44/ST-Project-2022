@@ -15,6 +15,7 @@
 <section class="text-center">
     <div class="container ps-4 pe-4">
         <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="mb-3">
                 <label asp-for="FirstName" class="form-label text-center">First Name</label>
                 <input asp-for="FirstName" class="form-control" />
@@ -68,20 +69,17 @@
 </section>
 
 @*Registration success prompt via Bootstrap Modals*@
-@if(TempData["success"] != null){
+@if (TempData["prompt-title"] != null)
+{
     <div class="modal" id="register-modal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Registration Successful!</h5>
+                    <h5 class="modal-title">@TempData["prompt-title"]</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <p>Your account details are:
-                        <br>User ID: @TempData["success-id"]
-                        <br>PIN: @TempData["success-pin"]
-                        <br /><span class="text-muted">Please keep this information safe!</span>
-                    </p>
+                    @Html.Raw(TempData["prompt-body"])
                 </div>
                 <div class="modal-footer justify-content-center">
                     <a type="button" class="btn btn-primary" asp-controller="Login" asp-action="Index">Sign In</a>

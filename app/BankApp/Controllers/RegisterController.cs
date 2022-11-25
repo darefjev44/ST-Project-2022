@@ -1,15 +1,24 @@
 ﻿using BankApp.Models;
 using BankApp.Models.Data;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Principal;
 
 namespace BankApp.Controllers
 {
+    [AllowAnonymous]
     public class RegisterController : Controller
     {
-        private readonly ApplicationDbContext _db;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ILogger<RegisterController> _logger;
 
-        public RegisterController(ApplicationDbContext db){
-            _db = db;
+        public RegisterController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<RegisterController> logger)
+        {
+            _signInManager = signInManager;
+            _userManager = userManager;
+            _logger = logger;
         }
 
         public IActionResult Index()
@@ -17,42 +26,52 @@ namespace BankApp.Controllers
             return View();
         }
 
-        //REGISTRATION FORM (POST)
         [HttpPost]
-        public IActionResult Index(RegisterViewModel avm)
+        public async Task<IActionResult> Index(RegisterViewModel rvm)
         {
             if (ModelState.IsValid)
             {
-                /*
-                ApplicationUser account = new ApplicationUser(); //this can and should be done via a new constructor e.g AccountModel(AccountViewModel)
-                account.FirstName = avm.FirstName;
-                account.LastName = avm.LastName;
-                account.Address1 = avm.Address1;
-                account.Address2 = avm.Address2;
-                account.City = avm.City;
-                account.County = avm.County;
-                account.Eircode = avm.Eircode;
-                account.Email = avm.Email;
-                account.PhoneNumber = avm.PhoneNumber;
+                var user = new ApplicationUser
+                {
+                    FirstName = rvm.FirstName,
+                    LastName = rvm.LastName,
+                    Address1 = rvm.Address1,
+                    Address2 = rvm.Address2,
+                    City = rvm.City,
+                    County = rvm.County,
+                    Eircode = rvm.Eircode,
+                    PhoneNumber = rvm.PhoneNumber,
+                    Email = rvm.Email,
+                    UserName = rvm.Email
+                };
 
-                //Add additional values that shouldn't be from the user.
-                account.Transactions = new List<TransactionModel>();
-                //PIN, probably done elsewhere once we have identities?
                 Random r = new Random();
-                account.PIN = r.Next(100000, 999999).ToString();
+                var pin = r.Next(100000, 999999).ToString();
 
-                _db.Accounts.Add(account);
-                _db.SaveChanges();
+                var result = await _userManager.CreateAsync(user, pin);
 
-                //TempData for registration success notification
-                TempData["success"] = true;
-                TempData["success-id"] = account.UserID;
-                TempData["success-pin"] = account.PIN;
-
-                ModelState.Clear(); //Clears the form, no need for it to be filled anymore.
-                return View();*/
+                if (result.Succeeded)
+                {
+                    TempData["prompt-title"] = "Successfully registered!";
+                    TempData["prompt-body"] = @"
+                    <p>Your account details are:
+                        <br>User ID: " + user.Id +
+                        "<br>PIN: " + pin +
+                        @"<br /><span class='text-muted'>Please keep this information safe!</span>
+                    </p>";
+                    return View();
+                } else
+                {
+                    TempData["prompt-title"] = "Something went wrong.";
+                    TempData["prompt-body"] = "<p>Error!";
+                    foreach(var error in result.Errors)
+                    {
+                        TempData["prompt-body"] += "<br>" + error;
+                    }
+                    TempData["prompt-body"] += "</p>";
+                }
             }
-            return View(avm);
+            return View();
         }
     }
 }
