@@ -48,7 +48,9 @@ namespace BankApp.Controllers
                 Random r = new Random();
                 var pin = r.Next(100000, 999999).ToString();
 
-                var result = await _userManager.CreateAsync(user, pin);
+                var result = await _userManager.CreateAsync(user, pin); //creates the account
+                user.UserName = user.Id.ToString(); //grabs the Id
+                await _userManager.UpdateAsync(user); //updates the UserName to be the Id (can't override UserName :/ )
 
                 if (result.Succeeded)
                 {
