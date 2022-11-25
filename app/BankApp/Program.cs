@@ -6,7 +6,7 @@ var sqlConnection = Environment.GetEnvironmentVariable("SQL_CONNECTION_STRING");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(sqlConnection));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(sqlConnection));
 
 var app = builder.Build();
 

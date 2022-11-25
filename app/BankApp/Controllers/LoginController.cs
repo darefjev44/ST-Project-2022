@@ -7,9 +7,9 @@ namespace BankApp.Controllers
     public class LoginController : Controller
     {
 
-        private readonly ApplicationDBContext _db;
+        private readonly ApplicationDbContext _db;
 
-        public LoginController(ApplicationDBContext db)
+        public LoginController(ApplicationDbContext db)
         {
             _db = db;
         }

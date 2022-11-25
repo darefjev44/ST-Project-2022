@@ -6,9 +6,9 @@ namespace BankApp.Controllers
 {
     public class RegisterController : Controller
     {
-        private readonly ApplicationDBContext _db;
+        private readonly ApplicationDbContext _db;
 
-        public RegisterController(ApplicationDBContext db){
+        public RegisterController(ApplicationDbContext db){
             _db = db;
         }
 

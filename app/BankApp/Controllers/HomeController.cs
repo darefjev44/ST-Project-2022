@@ -9,9 +9,9 @@ namespace BankApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ApplicationDBContext _dbContext;
+        private readonly ApplicationDbContext _dbContext;
 
-        public HomeController(ApplicationDBContext dbContext)
+        public HomeController(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
