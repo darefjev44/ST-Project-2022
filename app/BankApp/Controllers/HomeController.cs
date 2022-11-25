@@ -1,5 +1,6 @@
 ﻿using BankApp.Models;
 using BankApp.Models.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -7,6 +8,7 @@ using System.Security.Principal;
 
 namespace BankApp.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
