@@ -11,9 +11,9 @@ namespace BankApp.Models
     {
         [DisplayName("User ID")]
         [Required]
-        public int? UserID { get; set; }
+        public string? UserID { get; set; }
 
         [Required]
-        public string PIN { get; set; }
+        public string? PIN { get; set; }
     }
 }
