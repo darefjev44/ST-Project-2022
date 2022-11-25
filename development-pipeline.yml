@@ -44,8 +44,9 @@ steps:
 
 - task: CreatePullRequest@1
   inputs:
-    repoType: 'Azure DevOps'
-    repositorySelector: 'currentBuild'
+    repoType: 'GitHub'
+    githubEndpoint: 'GitHub PAT Connection'
+    githubRepository: '$(Build.Repository.Name)'
     sourceBranch: '$(Build.SourceBranch)'
     targetBranch: 'master'
-    title: 'Merge [BRANCH_NAME] into Master'
+    title: '(Auto) - Merge [BRANCH_NAME] into master'
