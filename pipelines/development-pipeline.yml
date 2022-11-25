@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- master
+- dev
 
 pool:
   vmImage: 'windows-latest'
@@ -20,13 +20,12 @@ steps:
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
-
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'Sonarcloud Connection'
     organization: 'st-project-2022'
     scannerMode: 'MSBuild'
-    projectKey: 'darefjev44_ST-Project-2022'
+    projectKey: 'st-project-2022'
     projectName: 'BankApp'
 - task: VSBuild@1
   inputs:
@@ -35,12 +34,19 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 - task: SonarCloudAnalyze@1
-
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
-
 - task: VSTest@2
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: CreatePullRequest@1
+  inputs:
+    repoType: 'GitHub'
+    githubEndpoint: 'GitHub PAT Connection'
+    githubRepository: '$(Build.Repository.Name)'
+    sourceBranch: '$(Build.SourceBranch)'
+    targetBranch: 'master'
+    title: '(Auto) - Merge [BRANCH_NAME] into master'
