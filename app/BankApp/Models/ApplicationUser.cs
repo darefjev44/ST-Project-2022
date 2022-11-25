@@ -2,20 +2,24 @@
 using System.Web;
 using System.ComponentModel;
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BankApp.Models
 {
-    public class ApplicationUser : IdentityUser<int>
+    public class ApplicationUser : IdentityUser
     {
         public ApplicationUser()
         {
             this.Transactions = new List<TransactionModel>();
         }
+        [PersonalData]
+        public int UserID { get; set; }
 
         [ProtectedPersonalData]
         public List<TransactionModel> Transactions { get; set; }
 
         [DefaultValue(0.00)]
+        [Column(TypeName = "decimal(10,2)")]
         [ProtectedPersonalData]
         public decimal Balance { get; set; }
 
