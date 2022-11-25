@@ -23,7 +23,7 @@ namespace BankApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                AccountModel account = new AccountModel(); //this can and should be done via a new constructor e.g AccountModel(AccountViewModel)
+                ApplicationUser account = new ApplicationUser(); //this can and should be done via a new constructor e.g AccountModel(AccountViewModel)
                 account.FirstName = avm.FirstName;
                 account.LastName = avm.LastName;
                 account.Address1 = avm.Address1;

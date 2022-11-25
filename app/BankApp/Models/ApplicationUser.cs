@@ -4,9 +4,9 @@ using System.ComponentModel;
 
 namespace BankApp.Models
 {
-    public class AccountModel
+    public class ApplicationUser
     {
-        public AccountModel()
+        public ApplicationUser()
         {
             this.Transactions = new List<TransactionModel>();
         }

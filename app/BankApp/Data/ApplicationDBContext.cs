@@ -10,7 +10,7 @@ namespace BankApp.Models.Data
 
         }
 
-        public DbSet<AccountModel> Accounts { set; get; }
+        public DbSet<ApplicationUser> Accounts { set; get; }
 
         public DbSet<TransactionModel> Transactions { set; get; }
     }
