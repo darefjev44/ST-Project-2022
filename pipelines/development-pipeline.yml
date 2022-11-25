@@ -49,4 +49,4 @@ steps:
     githubRepository: '$(Build.Repository.Name)'
     sourceBranch: '$(Build.SourceBranch)'
     targetBranch: 'master'
-    title: '(Auto) - Merge [BRANCH_NAME] into master'
+    title: '(Auto) - Merge $(Build.SourceBranch) into master'
