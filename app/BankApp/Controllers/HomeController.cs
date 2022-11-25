@@ -18,9 +18,12 @@ namespace BankApp.Controllers
 
         public IActionResult Index()
         {
+            /*
             var accounts = _dbContext.Accounts.Include(x => x.Transactions).Where(x => x.UserID == 1);
             var account = accounts.FirstOrDefault();
             return View(account);
+            */
+            return View();
         }
 
         public IActionResult Deposit()
@@ -49,6 +52,7 @@ namespace BankApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                /*
                 //create the transaction
                 TransactionModel transaction = new TransactionModel();
                 transaction.Amount = depositViewModel.Amount;
@@ -70,6 +74,7 @@ namespace BankApp.Controllers
 
                 ModelState.Clear(); //Clears the form, no need for it to be filled anymore.
                 return View();
+                */
             }
             return View(depositViewModel);
         }
@@ -79,11 +84,13 @@ namespace BankApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                /*
                 //check if destination id exists
                 var destUserFromDb = _dbContext.Accounts.Find(transferViewModel.DestinationID);
 
                 if (destUserFromDb != null)
                 {
+
                     var sourceUserFromDb = _dbContext.Accounts.Find(1);
 
                     //handle source user entity
@@ -115,6 +122,7 @@ namespace BankApp.Controllers
                 {
                     //error handle please thanks
                 }
+                */
             }
             return View(transferViewModel);
         }

@@ -25,6 +25,7 @@ namespace BankApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                /*
                 var account = _db.Accounts.Find(lvm.UserID);
 
                 //if login details are correct, create session, redirect user, etc.
@@ -36,7 +37,7 @@ namespace BankApp.Controllers
                 { 
                     TempData["message"] = "Invalid account details entered. Please try again.";
                     return View();
-                }
+                }*/
             }
             return View(lvm);
         }

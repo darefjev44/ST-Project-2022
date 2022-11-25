@@ -23,6 +23,7 @@ namespace BankApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                /*
                 ApplicationUser account = new ApplicationUser(); //this can and should be done via a new constructor e.g AccountModel(AccountViewModel)
                 account.FirstName = avm.FirstName;
                 account.LastName = avm.LastName;
@@ -49,7 +50,7 @@ namespace BankApp.Controllers
                 TempData["success-pin"] = account.PIN;
 
                 ModelState.Clear(); //Clears the form, no need for it to be filled anymore.
-                return View();
+                return View();*/
             }
             return View(avm);
         }
