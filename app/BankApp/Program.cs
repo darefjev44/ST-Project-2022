@@ -10,7 +10,7 @@ var sqlConnection = Environment.GetEnvironmentVariable("SQL_CONNECTION_STRING");
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
-    options.UseSqlServer("Server=DESKTOP-JPLIQEA\\SQLEXPRESS;Database=BankApp;Trusted_Connection=True;")
+    options.UseSqlServer(sqlConnection)
     );
 builder.Services
     .AddIdentity<ApplicationUser, CustomRole>(
