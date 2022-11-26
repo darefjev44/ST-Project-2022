@@ -6,26 +6,24 @@ namespace BankApp.Models
 {
     public class TransactionModel
     {
-        //PK
+        public TransactionModel(decimal amount, string message, DateTime date)
+        {
+            Amount = amount;
+            Message = message;
+            Date = date;
+        }
+
         [Key]
         [Required]
         public int TransactionID { get; set; }
 
-        /* Not sure if this is actually required?
-         * 
-        //FK - I messed up here I think.
-        [Required]
-        [ForeignKey("Account")]
-        public int AccountID { get; set; }
-        public virtual AccountModel Account { get; set; }
-        */
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
-        [Required]
+        [Column(TypeName = "decimal(10,2)")]
         public decimal Amount { get; set; }
 
         public string Message { get; set; }
 
-        [Required]
         public DateTime Date { get; set; }
     }
 }

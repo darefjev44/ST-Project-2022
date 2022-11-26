@@ -1,17 +1,16 @@
-﻿using BankApp.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BankApp.Models.Data
 {
-    public class ApplicationDBContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, CustomRole, int>
     {
-        public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
         }
 
-        public DbSet<AccountModel> Accounts { set; get; }
-
-        public DbSet<TransactionModel> Transactions { set; get; }
+        public virtual DbSet<TransactionModel> Transactions { set; get; }
     }
 }
