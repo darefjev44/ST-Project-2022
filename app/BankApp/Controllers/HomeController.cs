@@ -1,6 +1,7 @@
 ﻿using BankApp.Models;
 using BankApp.Models.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -11,21 +12,22 @@ namespace BankApp.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly ApplicationDbContext _dbContext;
+        private readonly ApplicationDbContext _db;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public HomeController(ApplicationDbContext dbContext)
+        public HomeController(ApplicationDbContext db, UserManager<ApplicationUser> userManager)
         {
-            _dbContext = dbContext;
+            _db = db;
+            _userManager = userManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            /*
-            var accounts = _dbContext.Accounts.Include(x => x.Transactions).Where(x => x.UserID == 1);
-            var account = accounts.FirstOrDefault();
-            return View(account);
-            */
-            return View();
+            var user = await _userManager.FindByIdAsync(User.Identity.Name);
+            var transactions = _db.Transactions.Where(t => t.ApplicationUser == user).ToList();
+            user.Transactions = transactions;
+
+            return View(user);
         }
 
         public IActionResult Deposit()
@@ -50,10 +52,14 @@ namespace BankApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Deposit(DepositViewModel depositViewModel)
+        public async Task<IActionResult> Deposit(DepositViewModel dvm)
         {
             if (ModelState.IsValid)
             {
+                TransactionModel transaction = new TransactionModel(dvm.Amount, "DEPOSIT", DateTime.Today);
+                var user = await _userManager.FindByIdAsync(User.Identity.Name);
+                user.Transactions.Add(transaction);
+                await _userManager.UpdateAsync(user);
                 /*
                 //create the transaction
                 TransactionModel transaction = new TransactionModel();
@@ -78,7 +84,7 @@ namespace BankApp.Controllers
                 return View();
                 */
             }
-            return View(depositViewModel);
+            return View(dvm);
         }
 
         [HttpPost]

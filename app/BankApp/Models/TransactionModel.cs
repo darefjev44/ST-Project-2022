@@ -17,6 +17,8 @@ namespace BankApp.Models
         [Required]
         public int TransactionID { get; set; }
 
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
         [Column(TypeName = "decimal(10,2)")]
         public decimal Amount { get; set; }
 

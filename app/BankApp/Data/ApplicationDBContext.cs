@@ -10,5 +10,7 @@ namespace BankApp.Models.Data
         {
 
         }
+
+        public virtual DbSet<TransactionModel> Transactions { set; get; }
     }
 }

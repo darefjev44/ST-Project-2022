@@ -14,7 +14,7 @@ namespace BankApp.Models
         }
 
         [ProtectedPersonalData]
-        public List<TransactionModel> Transactions { get; set; }
+        public virtual List<TransactionModel> Transactions { get; set; }
 
         [DefaultValue(0.00)]
         [Column(TypeName = "decimal(10,2)")]

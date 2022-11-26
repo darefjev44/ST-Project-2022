@@ -155,7 +155,7 @@ namespace BankApp.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(10,2)");
 
-                    b.Property<int?>("ApplicationUserId")
+                    b.Property<int>("ApplicationUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
@@ -169,7 +169,7 @@ namespace BankApp.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("TransactionModel");
+                    b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -277,9 +277,13 @@ namespace BankApp.Migrations
 
             modelBuilder.Entity("BankApp.Models.TransactionModel", b =>
                 {
-                    b.HasOne("BankApp.Models.ApplicationUser", null)
+                    b.HasOne("BankApp.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Transactions")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

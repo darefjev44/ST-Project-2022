@@ -165,24 +165,25 @@ namespace BankApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TransactionModel",
+                name: "Transactions",
                 columns: table => new
                 {
                     TransactionID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ApplicationUserId = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ApplicationUserId = table.Column<int>(type: "int", nullable: true)
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TransactionModel", x => x.TransactionID);
+                    table.PrimaryKey("PK_Transactions", x => x.TransactionID);
                     table.ForeignKey(
-                        name: "FK_TransactionModel_AspNetUsers_ApplicationUserId",
+                        name: "FK_Transactions_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -225,8 +226,8 @@ namespace BankApp.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TransactionModel_ApplicationUserId",
-                table: "TransactionModel",
+                name: "IX_Transactions_ApplicationUserId",
+                table: "Transactions",
                 column: "ApplicationUserId");
         }
 
@@ -248,7 +249,7 @@ namespace BankApp.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "TransactionModel");
+                name: "Transactions");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
