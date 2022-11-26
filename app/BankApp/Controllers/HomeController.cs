@@ -34,17 +34,7 @@ namespace BankApp.Controllers
             return View(user);
         }
 
-        public IActionResult Deposit()
-        {
-            return View();
-        }
-
         public IActionResult Tos()
-        {
-            return View();
-        }
-		
-        public IActionResult Transfer()
         {
             return View();
         }
@@ -53,6 +43,11 @@ namespace BankApp.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult Deposit()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -85,6 +80,11 @@ namespace BankApp.Controllers
                     TempData["prompt-body"] += "</p>";
                 }
             }
+            return View();
+        }
+
+        public IActionResult Transfer()
+        {
             return View();
         }
 
