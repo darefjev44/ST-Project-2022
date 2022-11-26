@@ -15,11 +15,13 @@ namespace BankApp.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public HomeController(ApplicationDbContext db, UserManager<ApplicationUser> userManager)
+        public HomeController(ApplicationDbContext db, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _db = db;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public async Task<IActionResult> Index()
@@ -148,6 +150,13 @@ namespace BankApp.Controllers
                 TempData["prompt-body"] = "<p>User ID " + tvm.DestinationID + " could not be found.</p>";
             }
             return View();
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            return RedirectToAction("Index", "Login");
         }
     }
 }
