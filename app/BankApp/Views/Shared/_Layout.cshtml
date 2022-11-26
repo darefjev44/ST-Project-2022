@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -16,7 +19,7 @@
             <button class="nav-link btn btn-outline-light ms-auto" data-bs-toggle="modal" data-bs-target="#signout-modal">Sign Out</button>
 			<div id="navbarNav" class="collapse navbar-collapse">
 				<ul class="navbar-nav ms-auto">
-					<li class="nav-item nav-seperator"><a class="nav-link">User ID: 999999</a></li>
+					<li class="nav-item nav-seperator"><a class="nav-link">User ID: @User.Identity.Name</a></li>
                     <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Transfer">Transfer Funds</a></li>
                     <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Deposit">Deposit Funds</a></li>
@@ -46,7 +49,7 @@
                     </div>
                     <div class="modal-footer justify-content-center">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                        <a type="button" class="btn btn-primary" asp-controller="Login" asp-action="Index">Yes</a>
+                        <a type="button" class="btn btn-primary" asp-controller="Home" asp-action="Logout">Yes</a>
                     </div>
                 </div>
             </div>
