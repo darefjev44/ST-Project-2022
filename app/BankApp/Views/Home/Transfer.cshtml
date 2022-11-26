@@ -1,14 +1,16 @@
-﻿@{
-	ViewData["Title"] = "Transfer";
+﻿@model TransferViewModel
+@inject UserManager<ApplicationUser> userManager;
+@inject IHttpContextAccessor _context;
+@{
+    ViewData["Title"] = "Transfer";
+    var user = await userManager.GetUserAsync(_context.HttpContext.User);
 }
-
-@model TransferViewModel
 
 <section class="text-center">
     <div class="container ps-5 pe-5">
         <h3>Your User ID is:</h3>
         <h2 class="d-flex align-items-center justify-content-center">
-            9999999
+            @user.Id
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
                 <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
                 <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
@@ -26,7 +28,7 @@
                 <span asp-validation-for="DestinationID" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="Amount" class="form-label text-center">Deposit Amount</label>
+                <label asp-for="Amount" class="form-label text-center">Transfer Amount</label>
                 <input asp-for="Amount" class="form-control" type="number"/>
                 <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
@@ -37,23 +39,21 @@
     </div>
 </section>
 @*Transfer success prompt via Bootstrap Modals*@
-@if (TempData["success"] != null)
+@if (TempData["prompt-title"] != null)
 {
     <div class="modal" id="transfer-modal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Transfer Successful!</h5>
+                    <h5 class="modal-title">@TempData["prompt-title"]</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <p>
-                        @TempData["prompt-message"]
-                    </p>
+                    @Html.Raw(TempData["prompt-body"])
                 </div>
                 <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a type="button" class="btn btn-primary" asp-controller="Home" asp-action="Index">Home</a>
+                    <button type="button" class="btn btn-primary" asp-controller="Home" asp-action="Index">Home</button>
                 </div>
             </div>
         </div>
@@ -66,9 +66,10 @@
 }
 
 
+
 @section Scripts{
     @{
-        <partial name="_ValidationScriptsPartial" />
-        <script src="~/lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
     }
 }
