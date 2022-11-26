@@ -59,32 +59,29 @@ namespace BankApp.Controllers
                 TransactionModel transaction = new TransactionModel(dvm.Amount, "DEPOSIT", DateTime.Today);
                 var user = await _userManager.FindByIdAsync(User.Identity.Name);
                 user.Transactions.Add(transaction);
-                await _userManager.UpdateAsync(user);
-                /*
-                //create the transaction
-                TransactionModel transaction = new TransactionModel();
-                transaction.Amount = depositViewModel.Amount;
-                transaction.Date = DateTime.Today;
-                transaction.Message = "DEPOSIT";
+                user.Balance += dvm.Amount;
+                var result = await _userManager.UpdateAsync(user);
 
-                //get user and add transaction to their user entity
-                var user = _dbContext.Accounts.Find(1);
-                user.Transactions.Add(transaction);
-                user.Balance += depositViewModel.Amount;
-
-                //update & save db
-                _dbContext.Accounts.Update(user);
-                _dbContext.SaveChanges();
-
-                TempData["success"] = true;
-                TempData["success-amount"] = depositViewModel.Amount.ToString();
-                TempData["prompt-message"] = "Deposited €" + depositViewModel.Amount + " successfully.";
-
-                ModelState.Clear(); //Clears the form, no need for it to be filled anymore.
-                return View();
-                */
+                if (result.Succeeded)
+                {
+                    TempData["prompt-title"] = "Deposit Successful!";
+                    TempData["prompt-body"] = @"
+                    <p>Successfully deposited €" + dvm.Amount +
+                    ".<br>Your balance is now €" + user.Balance + ".</p>";
+                    ModelState.Clear();
+                }
+                else
+                {
+                    TempData["prompt-title"] = "Something went wrong.";
+                    TempData["prompt-body"] = "<p>Error!";
+                    foreach (var error in result.Errors)
+                    {
+                        TempData["prompt-body"] += "<br>" + error;
+                    }
+                    TempData["prompt-body"] += "</p>";
+                }
             }
-            return View(dvm);
+            return View();
         }
 
         [HttpPost]

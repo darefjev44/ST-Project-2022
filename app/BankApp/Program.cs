@@ -32,6 +32,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/accessdenied";
     options.SlidingExpiration = true;
 });
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
