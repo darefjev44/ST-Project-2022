@@ -26,6 +26,7 @@ namespace BankApp.Controllers
         {
             var user = await _userManager.FindByIdAsync(User.Identity.Name);
             var transactions = _db.Transactions.Where(t => t.ApplicationUser == user).ToList();
+            transactions.Reverse();
             user.Transactions = transactions;
 
             return View(user);
