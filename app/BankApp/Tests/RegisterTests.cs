@@ -26,12 +26,24 @@ namespace BankApp.Tests
             viewModel.Email = "joe.bloggs@mail.ie";
         }
 
+        //Ensure that the default model all other tests are based on validates correctly.
         [Test]
         public void RegisterViewModel_DefaultTestModel_Validates()
         {
             var result = ModelTestHelper.Validate(viewModel);
 
             Assert.AreEqual(0, result.Count);
+        }
+
+        //First name, no input.
+        [Test]
+        public void RegisterViewModel_NoFirstName_Invalidates()
+        {
+            viewModel.FirstName = "";
+
+            var result = ModelTestHelper.Validate(viewModel);
+
+            Assert.AreEqual(1, result.Count);
         }
     }
 }
