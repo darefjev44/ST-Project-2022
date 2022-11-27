@@ -1,0 +1,26 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: windows-latest
+
+steps:
+- task: DownloadPipelineArtifact@2
+  displayName: Download Migration Bundle
+  inputs:
+    buildType: 'specific'
+    project: '01fcb960-431f-4111-b2ff-de84a642c941'
+    definition: '19'
+    specificBuildWithTriggering: true
+    buildVersionToDownload: 'latest'
+    targetPath: '$(Pipeline.Workspace)'
+
+- task: CmdLine@2
+  displayName: Run Migration Bundle
+  inputs:
+    script: '$(Pipeline.Workspace)/Migrations/bundle.exe --connection "$(SQL_CONNECTION_STRING)"'
