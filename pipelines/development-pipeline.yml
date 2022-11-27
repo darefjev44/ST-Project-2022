@@ -27,9 +27,6 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: 'st-project-2022'
     projectName: 'BankApp'
-    extraProperties: |
-      sonar.cs.nunit.reportsPaths=$(Agent.TempDirectory)/*.trx
-      sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*.trx'
 
 - task: VSBuild@1
   inputs:
@@ -38,10 +35,15 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: DotNetCoreCLI@2
+- task: VSTest@2
   inputs:
-    command: 'test'
-    projects: '**/*.csproj'
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\*test*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+    codeCoverageEnabled: true
 - task: SonarCloudAnalyze@1
 - task: SonarCloudPublish@1
   inputs:
