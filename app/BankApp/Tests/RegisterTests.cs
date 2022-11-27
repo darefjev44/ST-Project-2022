@@ -26,6 +26,8 @@ namespace BankApp.Tests
             viewModel.Email = "joe.bloggs@mail.ie";
         }
 
+        /* First Name */
+
         //Ensure that the default model all other tests are based on validates correctly.
         [Test]
         public void RegisterViewModel_DefaultTestModel_Validates()
@@ -67,5 +69,41 @@ namespace BankApp.Tests
 
             Assert.AreEqual(1, result.Count);
         }
+
+        /* Last Name */
+
+        //Last name, no input.
+        [Test]
+        public void RegisterViewModel_NoLastName_Invalidates()
+        {
+            viewModel.LastName = "";
+
+            var result = ModelTestHelper.Validate(viewModel);
+
+            Assert.AreEqual(1, result.Count);
+        }
+
+        //Last name, invalid characters.
+        [Test]
+        public void RegisterViewModel_InvalidCharactersInLastName_Invalidates()
+        {
+            viewModel.LastName = "Bloggs!";
+
+            var result = ModelTestHelper.Validate(viewModel);
+
+            Assert.AreEqual(1, result.Count);
+        }
+
+        //Last name, too long.
+        [Test]
+        public void RegisterViewModel_LongLastName_Invalidates()
+        {
+            viewModel.LastName = "ReallyLongLastNameYouShouldAvoidTakingDuringMarriage";
+
+            var result = ModelTestHelper.Validate(viewModel);
+
+            Assert.AreEqual(1, result.Count);
+        }
+
     }
 }
