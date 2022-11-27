@@ -25,5 +25,13 @@ namespace BankApp.Tests
             viewModel.PhoneNumber = "086 123 1234";
             viewModel.Email = "joe.bloggs@mail.ie";
         }
+
+        [Test]
+        public void RegisterViewModel_DefaultTestModel_Validates()
+        {
+            var result = ModelTestHelper.Validate(viewModel);
+
+            Assert.AreEqual(0, result.Count);
+        }
     }
 }
