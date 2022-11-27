@@ -23,4 +23,4 @@ steps:
 - task: CmdLine@2
   displayName: Run Migration Bundle
   inputs:
-    script: '$(Pipeline.Workspace)/Migrations/Bundle.exe --connection $(SQL_CONNECTION_STRING)'
+    script: '$(Pipeline.Workspace)/Migrations/bundle.exe --connection $(SQL_CONNECTION_STRING)'
