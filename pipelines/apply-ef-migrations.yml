@@ -20,3 +20,7 @@ steps:
     buildVersionToDownload: 'latest'
     targetPath: '$(Pipeline.Workspace)'
 
+- task: CmdLine@2
+  displayName: Run Migration Bundle
+  inputs:
+    script: '$(Pipeline.Workspace)/Migrations/Bundle.exe --connection $(SQL_CONNECTION_STRING)'
