@@ -45,5 +45,27 @@ namespace BankApp.Tests
 
             Assert.AreEqual(1, result.Count);
         }
+
+        //First name, invalid characters.
+        [Test]
+        public void RegisterViewModel_InvalidCharactersInFirstName_Invalidates()
+        {
+            viewModel.FirstName = "Joe!";
+
+            var result = ModelTestHelper.Validate(viewModel);
+
+            Assert.AreEqual(1, result.Count);
+        }
+
+        //First name, too long.
+        [Test]
+        public void RegisterViewModel_LongFirstName_Invalidates()
+        {
+            viewModel.FirstName = "SuperDuperLongFirstNameThatNoParentShouldGiveTheirChild";
+
+            var result = ModelTestHelper.Validate(viewModel);
+
+            Assert.AreEqual(1, result.Count);
+        }
     }
 }
