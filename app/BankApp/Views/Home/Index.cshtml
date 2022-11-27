@@ -15,8 +15,8 @@
 </section>
 <section class="text-center">
     <div class="container ps-4 pe-4">
-        <table class="table">
-            <thead>
+        @if(Model.Transactions.Count > 0){
+            <table class="table" aria-label="Recent Transactions">
                 @foreach (var transaction in Model.Transactions){
                     <tr>
                         <th>
@@ -30,7 +30,9 @@
                         </td>
                     </tr>
                 }
-            </thead>
-        </table>
+            </table>
+        } else {
+            <p class="text-muted">You do not have any transactions under this account.</p>
+        }
     </div>
 </section>

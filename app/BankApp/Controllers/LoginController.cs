@@ -11,14 +11,10 @@ namespace BankApp.Controllers
     {
 
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ILogger<RegisterController> _logger;
 
-        public LoginController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<RegisterController> logger)
+        public LoginController(SignInManager<ApplicationUser> signInManager)
         {
             _signInManager = signInManager;
-            _userManager = userManager;
-            _logger = logger;
         }
 
         public IActionResult Index()
