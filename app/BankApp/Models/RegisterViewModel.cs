@@ -11,12 +11,14 @@ namespace BankApp.Models
     {
         //Account Signup Information
         [Required(ErrorMessage = "First name is required.")]
-        [RegularExpression("^[a-zA-Z ]*$")]
+        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "First name must contain only letters and spaces.")]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "First name must be between 2 and 50 characters.")]
         public string? FirstName { get; set; }
 
 
         [Required(ErrorMessage = "Surname is required.")]
-        [RegularExpression("^[a-zA-Z ]*$")]
+        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Surname must contain only letters and spaces.")]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "Surname must be between 2 and 50 characters.")]
         public string? LastName { get; set; }
 
 
