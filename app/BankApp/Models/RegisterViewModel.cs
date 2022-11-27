@@ -36,7 +36,7 @@ namespace BankApp.Models
 
 
         [Required(ErrorMessage = "Eircode is required.")]
-        [StringLength(7, MinimumLength = 7, ErrorMessage = "Invalid eircode has been entered.")]
+        [RegularExpression("^([A-Za-z0-9]{3}\\s{0,1}[A-Za-z0-9]{4})$", ErrorMessage = "Invalid eircode has been entered.")]
         public string? Eircode { get; set; }
 
 
