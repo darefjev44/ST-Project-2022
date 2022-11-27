@@ -1,0 +1,39 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- checkout: self
+- task: DotNetCoreCLI@2
+  displayName: Add Tool Manifest
+  inputs:
+    command: custom
+    custom: 'new '
+    arguments: tool-manifest
+- task: DotNetCoreCLI@2
+  displayName: Install EF Tool
+  inputs:
+    command: custom
+    custom: 'tool '
+    arguments: install dotnet-ef
+
+- task: DotNetCoreCLI@2
+  displayName: Create Migration Bundle
+  inputs:
+    command: 'custom'
+    custom: 'ef '
+    arguments: 'migrations bundle --output $(build.artifactstagingdirectory)\\bundle.exe --project "D:\a\1\s\app\BankApp\BankApp.csproj" --self-contained'
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish Build Artifact
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'Migrations'
+    publishLocation: 'Container'
