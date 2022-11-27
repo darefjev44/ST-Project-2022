@@ -39,6 +39,7 @@ steps:
   inputs:
     command: 'test'
     projects: '**/*.csproj'
+    arguments: '--collect "Code coverage"'
 - task: SonarCloudAnalyze@1
 - task: SonarCloudPublish@1
   inputs:
