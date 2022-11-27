@@ -105,5 +105,43 @@ namespace BankApp.Tests
             Assert.AreEqual(1, result.Count);
         }
 
+        /* Address 1 */
+
+        //Address 1, no input.
+        [Test]
+        public void RegisterViewModel_NoAddress1_Invalidates()
+        {
+            viewModel.Address1 = "";
+
+            var result = ModelTestHelper.Validate(viewModel);
+
+            Assert.AreEqual(1, result.Count);
+        }
+
+        /* City */
+
+        //City, no input.
+        [Test]
+        public void RegisterViewModel_NoCity_Invalidates()
+        {
+            viewModel.City = "";
+
+            var result = ModelTestHelper.Validate(viewModel);
+
+            Assert.AreEqual(1, result.Count);
+        }
+
+        /* County */
+
+        //County, no input.
+        [Test]
+        public void RegisterViewModel_NoCounty_Invalidates()
+        {
+            viewModel.County = "";
+
+            var result = ModelTestHelper.Validate(viewModel);
+
+            Assert.AreEqual(1, result.Count);
+        }
     }
 }
