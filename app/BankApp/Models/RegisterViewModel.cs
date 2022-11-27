@@ -49,7 +49,7 @@ namespace BankApp.Models
 
 
         [Required(ErrorMessage = "Email is required.")]
-        [DataType(DataType.EmailAddress, ErrorMessage = "Invalid Email has been entered.")]
+        [EmailAddress(ErrorMessage = "Invalid Email has been entered.")]
         public string? Email { get; set; }
     }
 }
