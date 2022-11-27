@@ -27,7 +27,9 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: 'st-project-2022'
     projectName: 'BankApp'
-    extraProperties: 'sonar.cs.nunit.reportsPaths=$(Agent.TempDirectory)/*.trx'
+    extraProperties: |
+      sonar.cs.nunit.reportsPaths=$(Agent.TempDirectory)/*.trx
+      sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*.trx'
 
 - task: VSBuild@1
   inputs:
