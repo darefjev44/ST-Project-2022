@@ -27,20 +27,23 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: 'st-project-2022'
     projectName: 'BankApp'
+
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '**/*.csproj'
+    arguments: '--collect "Code coverage"'
 - task: SonarCloudAnalyze@1
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
 
 - task: CreatePullRequest@1
   inputs:
@@ -50,3 +53,4 @@ steps:
     sourceBranch: '$(Build.SourceBranch)'
     targetBranch: 'master'
     title: '(Auto) - Merge $(Build.SourceBranch) into master'
+    githubAutoMerge: true
