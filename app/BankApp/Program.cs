@@ -55,4 +55,12 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Base}/{action=Index}/{id?}");
 
+if (Environment.GetEnvironmentVariable("IS_DOCKER_CONTAINER") == "YES")
+{
+    using (IServiceScope scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
+    {
+        scope.ServiceProvider.GetService<ApplicationDbContext>().Database.Migrate();
+    }
+}
+
 app.Run();
