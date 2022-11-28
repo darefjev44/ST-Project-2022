@@ -18,9 +18,9 @@ steps:
       DROP TABLE [dbo].[AspNetRoles]
       DROP TABLE [dbo].[AspNetUsers]
       DROP TABLE [dbo].[__EFMigrationsHistory]
-    ServerName: 'stproj-2022-sqlserver.database.windows.net'
-    DatabaseName: 'BankAppDB'
-    SqlUsername: 'BankAppAdmin'
+    ServerName: '$(SQL_HOST)'
+    DatabaseName: '$(SQL_DB)'
+    SqlUsername: '$(SQL_USER)'
     SqlPassword: '$(SQL_PASSWORD)'
 
  
