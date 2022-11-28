@@ -9,6 +9,9 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
+variables:
+- group: SQL Connection Variables
+
 steps:
 - checkout: self
 - task: DotNetCoreCLI@2
