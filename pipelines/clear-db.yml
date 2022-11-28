@@ -4,6 +4,9 @@ trigger:
 pool:
   vmImage: windows-latest
 
+variables:
+- group: SQL Connection Variables
+
 steps:
 - task: SqlDacpacDeploymentOnMachineGroup@0
   displayName: Run SQL Query
