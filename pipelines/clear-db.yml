@@ -10,15 +10,15 @@ steps:
   inputs:
     TaskType: 'sqlInline'
     InlineSql: |
-      DROP TABLE [dbo].[AspNetUserTokens]
-      DROP TABLE [dbo].[AspNetUserRoles]
-      DROP TABLE [dbo].[AspNetUserClaims]
-      DROP TABLE [dbo].[AspNetUserLogins]
-      DROP TABLE [dbo].[AspNetRoleClaims]
-      DROP TABLE [dbo].[Transactions]
-      DROP TABLE [dbo].[AspNetRoles]
-      DROP TABLE [dbo].[AspNetUsers]
-      DROP TABLE [dbo].[__EFMigrationsHistory]
+      DROP TABLE IF EXISTS [dbo].[AspNetUserTokens]
+      DROP TABLE IF EXISTS [dbo].[AspNetUserRoles]
+      DROP TABLE IF EXISTS [dbo].[AspNetUserClaims]
+      DROP TABLE IF EXISTS [dbo].[AspNetUserLogins]
+      DROP TABLE IF EXISTS [dbo].[AspNetRoleClaims]
+      DROP TABLE IF EXISTS [dbo].[Transactions]
+      DROP TABLE IF EXISTS [dbo].[AspNetRoles]
+      DROP TABLE IF EXISTS [dbo].[AspNetUsers]
+      DROP TABLE IF EXISTS [dbo].[__EFMigrationsHistory]
     ServerName: '$(SQL_HOST),1433'
     DatabaseName: '$(SQL_DB)'
     AuthScheme: 'sqlServerAuthentication'
