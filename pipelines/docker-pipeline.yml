@@ -28,11 +28,11 @@ stages:
         tags: |
           $(tag)
         arguments: '-t asp_app'
-    - task: DockerCompose@0
-      inputs:
-        containerregistrytype: 'Azure Container Registry'
-        azureSubscription: 'Azure for Students (d83b14d9-910d-4b55-82eb-b8248af5cd30)'
-        azureContainerRegistry: '{"loginServer":"stprojcr.azurecr.io", "id" : "/subscriptions/d83b14d9-910d-4b55-82eb-b8248af5cd30/resourceGroups/STProject2022-RG/providers/Microsoft.ContainerRegistry/registries/stprojcr"}'
-        dockerComposeFile: '**/docker-compose.yml'
-        action: 'Run a Docker Compose command'
-        dockerComposeCommand: 'up'
+#    - task: DockerCompose@0
+#      inputs:
+#        containerregistrytype: 'Azure Container Registry'
+#        azureSubscription: 'Azure for Students (d83b14d9-910d-4b55-82eb-b8248af5cd30)'
+#        azureContainerRegistry: '{"loginServer":"stprojcr.azurecr.io", "id" : "/subscriptions/d83b14d9-910d-4b55-82eb-b8248af5cd30/resourceGroups/STProject2022-RG/providers/Microsoft.ContainerRegistry/registries/stprojcr"}'
+#        dockerComposeFile: '**/docker-compose.yml'
+#        action: 'Run a Docker Compose command'
+#        dockerComposeCommand: 'up'
