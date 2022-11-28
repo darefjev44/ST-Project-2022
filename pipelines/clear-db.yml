@@ -6,6 +6,7 @@ pool:
 
 steps:
 - task: SqlDacpacDeploymentOnMachineGroup@0
+  displayName: Run SQL Query
   inputs:
     TaskType: 'sqlInline'
     InlineSql: |
