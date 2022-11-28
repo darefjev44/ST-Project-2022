@@ -5,10 +5,10 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: MysqlDeploymentOnMachineGroup@1
+- task: SqlDacpacDeploymentOnMachineGroup@0
   inputs:
-    TaskNameSelector: 'InlineSqlTask'
-    SqlInline: |
+    TaskType: 'sqlInline'
+    InlineSql: |
       DROP TABLE [dbo].[AspNetUserTokens]
       DROP TABLE [dbo].[AspNetUserRoles]
       DROP TABLE [dbo].[AspNetUserClaims]
@@ -18,9 +18,9 @@ steps:
       DROP TABLE [dbo].[AspNetRoles]
       DROP TABLE [dbo].[AspNetUsers]
       DROP TABLE [dbo].[__EFMigrationsHistory]
-    ServerName: '$(SQL_HOST)'
+    ServerName: '$(SQL_HOST),1433'
     DatabaseName: '$(SQL_DB)'
+    AuthScheme: 'sqlServerAuthentication'
     SqlUsername: '$(SQL_USER)'
     SqlPassword: '$(SQL_PASSWORD)'
-
  
