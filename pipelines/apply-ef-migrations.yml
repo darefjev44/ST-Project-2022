@@ -9,6 +9,9 @@ trigger:
 pool:
   vmImage: windows-latest
 
+variables:
+- group: SQL Connection Variables
+
 steps:
 - task: DownloadPipelineArtifact@2
   displayName: Download Migration Bundle
