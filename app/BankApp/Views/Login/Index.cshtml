@@ -23,8 +23,35 @@
             <div class="mb-3">
                 @*Individual PIN inputs removed for now as ASP Identity isn't being used yet and I'm unsure of implementation.*@
                 <label asp-for="PIN" class="form-label text-center">PIN</label>
-                <input asp-for="PIN" class="form-control" type="password" maxlength="6"/>
+                <input asp-for="PIN" class="form-control visually-hidden" type="password" maxlength="6"/>
+                <div class="d-flex justify-content-center">
+                    <!-- Hidden labels for accessibility -->
+                    <label class="visually-hidden" for="pin1">Pin Digit 1</label>
+                    <input class="form-control pin-digit" type="password" maxlength="1" id="pin1">
+                    <label class="visually-hidden" for="pin2">Pin Digit 2</label>
+                    <input class="form-control pin-digit" type="password" maxlength="1" id="pin2">
+                    <label class="visually-hidden" for="pin3">Pin Digit 3</label>
+                    <input class="form-control pin-digit" type="password" maxlength="1" id="pin3">
+                    <label class="visually-hidden" for="pin4">Pin Digit 4</label>
+                    <input class="form-control pin-digit" type="password" maxlength="1" id="pin4">
+                    <label class="visually-hidden" for="pin5">Pin Digit 5</label>
+                    <input class="form-control pin-digit" type="password" maxlength="1" id="pin5">
+                    <label class="visually-hidden" for="pin6">Pin Digit 6</label>
+                    <input class="form-control pin-digit" type="password" maxlength="1" id="pin6">
+                </div>
                 <span asp-validation-for="PIN" class="text-danger"></span>
+                <script>
+                    $(".pin-digit").keyup(function () {
+                        var pin = "";
+                        $(".pin-digit").each(function () {
+                            pin += $(this).val();
+                        })
+                        if (this.value.length == this.maxLength) {
+                            $(this).next().focus();
+                        }
+                        $("#PIN").val(pin);
+                    });
+                </script>
             </div>
             <div class="mb-3">
                 <button class="btn btn-primary w-50" type="submit">Sign In</button>

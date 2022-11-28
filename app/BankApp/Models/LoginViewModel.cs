@@ -11,6 +11,7 @@ namespace BankApp.Models
         public string? UserID { get; set; }
 
         [Required]
+        [StringLength(6, MinimumLength = 6, ErrorMessage = "All PIN digits must be filled.")]
         public string? PIN { get; set; }
     }
 }

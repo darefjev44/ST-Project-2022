@@ -47,5 +47,15 @@ namespace BankApp.Tests
 
             Assert.AreEqual(1, result.Count);
         }
+
+        [Test]
+        public void LoginViewModel_WrongPINLength_Invalidates()
+        {
+            viewModel.PIN = "123";
+
+            var result = ModelTestHelper.Validate(viewModel);
+
+            Assert.AreEqual(1, result.Count);
+        }
     }
 }
