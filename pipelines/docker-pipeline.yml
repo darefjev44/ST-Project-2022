@@ -1,0 +1,37 @@
+# Docker
+# Build a Docker image
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      displayName: Build an image
+      inputs:
+        command: build
+        dockerfile: '$(Build.SourcesDirectory)/app/BankApp/Dockerfile'
+        tags: |
+          $(tag)
+    - task: DockerCompose@0
+      inputs:
+        containerregistrytype: 'Azure Container Registry'
+        azureSubscription: 'Azure for Students (d83b14d9-910d-4b55-82eb-b8248af5cd30)'
+        azureContainerRegistry: '{"loginServer":"stprojcr.azurecr.io", "id" : "/subscriptions/d83b14d9-910d-4b55-82eb-b8248af5cd30/resourceGroups/STProject2022-RG/providers/Microsoft.ContainerRegistry/registries/stprojcr"}'
+        dockerComposeFile: '**/docker-compose.yml'
+        action: 'Run a Docker Compose command'
+        dockerComposeCommand: 'up'
